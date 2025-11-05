@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Exam Performance Indicator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+
+    .svg-img {
+      max-width: 250px;
+      width: 100%;
+      height: auto;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    h1::before {
+      content: "🎓";
+      display: block;
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    select,
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      transition: border 0.3s;
+    }
+
+    select:focus,
+    input[type="number"]:focus {
+      border-color: #4CAF50;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #388e3c;
+    }
+
+    .result {
+      margin-top: 30px;
+      text-align: center;
+      color: #2d6a4f;
+      font-size: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+        text-align: center;
+      }
+      .svg-top-right,
+  .svg-bottom-left {
+    display: none;
+  }
+    }
+    .svg-floating {
+  position: absolute;
+  width:30%;
+  opacity: 0.9;
+  animation: float 4s ease-in-out infinite;
+}
+
+.svg-top-left {
+  top: 30px;
+  left: 30px;
+}
+
+.svg-top-right {
+  top: 30px;
+  right: 30px;
+}
+
+.svg-bottom-left {
+  bottom: 30px;
+  left: 30px;
+}
+
+
+
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+  </style>
+</head>
+<body>
+
+      <div style="position: relative; width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center;">
+
+ 
+    <img src="{{ url_for('static', filename='svg1.svg') }}" alt="SVG 1" class="svg-floating svg-top-left">
+    <img src="{{ url_for('static', filename='svg2.svg') }}" alt="SVG 2" class="svg-floating svg-top-right">
+    <img src="{{ url_for('static', filename='svg3.svg') }}" alt="SVG 3" class="svg-floating svg-bottom-left">
+
+    <!-- <img src="svg4.svg" alt="SVG 4" class="svg-floating svg-bottom-right"> -->
+  
+
+
+    <div class="container">
+      <h1>Student Exam Performance</h1>
+      <form action="{{ url_for('predict_datapoint') }}" method="post">
+
+        <label>Gender</label>
+        <select name="gender" required>
+          <option disabled selected value="">Select your Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+
+        <label>Race or Ethnicity</label>
+        <select name="ethnicity" required>
+          <option disabled selected value="">Select Ethnicity</option>
+          <option value="group A">Group A</option>
+          <option value="group B">Group B</option>
+          <option value="group C">Group C</option>
+          <option value="group D">Group D</option>
+          <option value="group E">Group E</option>
+        </select>
+
+        <label>Parental Level of Education</label>
+        <select name="parental_level_of_education" required>
+          <option disabled selected value="">Select Parent Education</option>
+          <option value="associate's degree">Associate's degree</option>
+          <option value="bachelor's degree">Bachelor's degree</option>
+          <option value="high school">High school</option>
+          <option value="master's degree">Master's degree</option>
+          <option value="some college">Some college</option>
+          <option value="some high school">Some high school</option>
+        </select>
+
+        <label>Lunch Type</label>
+        <select name="lunch" required>
+          <option disabled selected value="">Select Lunch Type</option>
+          <option value="free/reduced">Free/Reduced</option>
+          <option value="standard">Standard</option>
+        </select>
+
+        <label>Test Preparation Course</label>
+        <select name="test_preparation_course" required>
+          <option disabled selected value="">Select Course</option>
+          <option value="none">None</option>
+          <option value="completed">Completed</option>
+        </select>
+
+        <label>Reading Score (out of 100)</label>
+        <input type="number" name="reading_score" min="0" max="100" required />
+
+        <label>Writing Score (out of 100)</label>
+        <input type="number" name="writing_score" min="0" max="100" required />
+
+        <button type="submit">Predict Math Score</button>
+      </form>
+
+      {% if results %}
+        <div class="result">Prediction: {{ results }}</div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
+

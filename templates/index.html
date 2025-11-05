@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Exam Performance Predictor</title>
+</head>
+<body style="margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(to right, #f0f4f8, #d9e4f5); color: #333;">
+
+  <div style="display: flex; justify-content: space-between; padding: 30px;">
+    
+    <!-- Left Margin Image -->
+    <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+      <img src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="Left graph" style="max-width: 200px; border-radius: 10px;" />
+    </div>
+
+    <!-- Main Form -->
+    <div style="flex: 2; max-width: 700px; background: #fff; padding: 30px 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+      <h1 style="text-align: center; color: #444;">📚 Student Exam Performance Predictor</h1>
+
+      <form action="{{ url_for('predict_datapoint') }}" method="post" style="margin-top: 30px;">
+        {% macro select_input(label, name, options) %}
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">{{ label }}</label>
+          <select name="{{ name }}" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
+            <option value="" disabled selected>Select {{ label }}</option>
+            {% for option in options %}
+              <option value="{{ option }}">{{ option|capitalize }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% endmacro %}
+
+        {{ select_input("Gender", "gender", ["male", "female"]) }}
+        {{ select_input("Race or Ethnicity", "ethnicity", ["group A", "group B", "group C", "group D", "group E"]) }}
+        {{ select_input("Parental Level of Education", "parental_level_of_education", ["associate's degree", "bachelor's degree", "high school", "master's degree", "some college", "some high school"]) }}
+        {{ select_input("Lunch Type", "lunch", ["standard", "free/reduced"]) }}
+        {{ select_input("Test Preparation Course", "test_preparation_course", ["none", "completed"]) }}
+
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Writing Score (out of 100)</label>
+          <input type="number" name="writing_score" min="0" max="100" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Reading Score (out of 100)</label>
+          <input type="number" name="reading_score" min="0" max="100" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
+        </div>
+
+        <div style="text-align: center;">
+          <input type="submit" value="🎯 Predict Math Score" style="padding: 12px 24px; border: none; background: #007BFF; color: white; border-radius: 8px; cursor: pointer; font-weight: bold;">
+        </div>
+      </form>
+
+      {% if results is not none %}
+      <div style="margin-top: 30px; padding: 20px; background: #e0f7fa; border-left: 6px solid #007BFF; border-radius: 8px;">
+        <h2 style="color: #007BFF;">📊 Predicted Math Score: {{ results }}</h2>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Right Margin Image -->
+    <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+      <img src="https://cdn-icons-png.flaticon.com/512/4385/4385939.png" alt="Right graph" style="max-width: 200px; border-radius: 10px;" />
+    </div>
+
+  </div>
+</body>
+</html>

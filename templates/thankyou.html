@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #7079f8, #030374);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .box {
+      background: rgb(113, 117, 237);
+      padding: 40px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 12px 32px rgba(255, 253, 253, 0.1);
+      animation: float 4s ease-in-out infinite;
+      z-index: 2;
+      width: 90%;
+      max-width: 420px;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #ffffff;
+      margin-top: 10px;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    a:hover {
+      background: #388e3c;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Decorative background circles */
+    .circle {
+      position: absolute;
+      border-radius: 90%;
+      opacity: 0.1;
+      animation: scaleUp 6s ease-in-out infinite alternate;
+    }
+
+    .circle.one {
+      width: 300px;
+      height: 300px;
+      background: #f6d365;
+      top: 10%;
+      left: 10%;
+    }
+
+    .circle.two {
+      width: 200px;
+      height: 200px;
+      background:#ff9a9e;
+      bottom: 15%;
+      right: 12%;
+    }
+
+    @keyframes scaleUp {
+      from { transform: scale(1); }
+      to { transform: scale(1.15); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Decorative Circles -->
+  <div class="circle one"></div>
+  <div class="circle two"></div>
+
+  <!-- Floating Thank You Box -->
+  <div class="box">
+    <h1>✅ Prediction Complete!</h1>
+    <p>Thank you for using the Student Performance Predictor.</p>
+    <p><strong>Predicted Math Score:</strong> {{ results }}</p>
+    <a href="{{ url_for('home') }}">Go back</a>
+  </div>
+
+</body>
+</html>
